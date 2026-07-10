@@ -254,11 +254,17 @@ code {
   line-height: .95;
   letter-spacing: -2px;
   margin-bottom: var(--space-4);
-  background: var(--chrome-gradient);
+  background: linear-gradient(135deg, #f0c265 0%, #d4af37 25%, #fff4d0 50%, #d4af37 75%, #a87b1e 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 4px 20px rgba(91,142,240,0.3));
+  animation: shine 5s linear infinite;
+  filter: drop-shadow(0 8px 16px rgba(212, 175, 55, 0.35));
+}
+
+@keyframes shine {
+  to { background-position: 200% center; }
 }
 
 .hero-role {
@@ -289,25 +295,28 @@ code {
   position: relative;
 }
 
-/* Profile image glass frame */
+/* Profile image seamless 3D blend */
 .hero-photo-frame {
   position: relative;
-  width: 100%; max-width: 420px;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 .hero-photo-frame img {
-  width: 100%; height: 500px;
-  object-fit: cover; object-position: center top;
-  border-radius: var(--radius-xl);
+  width: 140%;
+  max-width: none;
+  height: 650px;
+  object-fit: cover;
+  object-position: right top;
+  /* Seamless fade into background */
+  -webkit-mask-image: radial-gradient(circle at 60% 40%, black 25%, transparent 70%);
+  mask-image: radial-gradient(circle at 60% 40%, black 25%, transparent 70%);
   display: block;
+  transform: scale(1.15) translate(8%, -8%);
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15));
 }
 .hero-photo-frame .frame-glow {
-  position: absolute; inset: 0;
-  border-radius: var(--radius-xl);
-  box-shadow: inset 0 0 60px rgba(91,142,240,0.2), 0 0 80px rgba(91,142,240,0.25);
-  pointer-events: none;
-  border: 1px solid rgba(255,255,255,0.5);
+  display: none;
 }
 
 /* Floating chrome badge top-right of hero */

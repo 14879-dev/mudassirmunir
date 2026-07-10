@@ -91,17 +91,13 @@ require_once __DIR__ . '/includes/header.php';
                  loading="eager">
           <?php else: ?>
             <!-- Placeholder gradient portrait -->
-            <div style="width:100%;height:500px;background:linear-gradient(160deg,#c8d8f0 0%,#a0b8de 40%,#8aaad0 100%);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:center;">
-              <div style="font-size:120px;opacity:.5;">🧑‍💻</div>
+            <div style="width:100%;height:600px;background:linear-gradient(160deg,#c8d8f0 0%,#a0b8de 40%,#8aaad0 100%);display:flex;align-items:center;justify-content:center; -webkit-mask-image: radial-gradient(circle at 60% 40%, black 30%, transparent 75%);">
+              <div style="font-size:150px;opacity:.5;">🧑‍💻</div>
             </div>
           <?php endif; ?>
           <div class="frame-glow" aria-hidden="true"></div>
 
-          <!-- Floating star badge -->
-          <div class="hero-badge-float" style="position:absolute;top:16px;right:16px;">
-            <i class="bi bi-stars" style="color:var(--color-accent);"></i>
-            NOVA GLASS
-          </div>
+          
 
           <!-- Decorative orbit ring -->
           <div class="hero-orbit" aria-hidden="true">
