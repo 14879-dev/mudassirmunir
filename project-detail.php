@@ -13,7 +13,7 @@ sendSecurityHeaders();
 
 $slug = $_GET['slug'] ?? '';
 if (!$slug) {
-    header('Location: ' . APP_URL . '/projects.php');
+    header('Location: ' . APP_URL . '/index.php#projects');
     exit;
 }
 
@@ -27,7 +27,7 @@ if (!$project) {
     http_response_code(404);
     $pageTitle = "Project Not Found";
     require_once __DIR__ . '/includes/header.php';
-    echo '<div class="container page-section text-center"><h1 class="mb-4">Project Not Found</h1><a href="' . APP_URL . '/projects.php" class="btn-neu btn-neu--primary">Back to Projects</a></div>';
+    echo '<div class="container page-section text-center"><h1 class="mb-4">Project Not Found</h1><a href="' . APP_URL . '/index.php#projects" class="btn-neu btn-neu--primary">Back to Projects</a></div>';
     require_once __DIR__ . '/includes/footer.php';
     exit;
 }

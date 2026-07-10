@@ -50,8 +50,9 @@ unset($_SESSION['flash_success'], $_SESSION['flash_error']);
         <?php else: ?>
           <?php foreach ($projects as $i => $p):
             $tags = json_decode($p['tags'] ?? '[]', true) ?: [];
-            $statusColors = ['published'=>'success','draft'=>'secondary','archived'=>'warning'];
-            $sc = $statusColors[$p['status'] ?? 'draft'] ?? 'secondary';
+            $isPublished = (bool)($p['is_published'] ?? 1);
+            $sc = $isPublished ? 'success' : 'secondary';
+            $statusText = $isPublished ? 'Published' : 'Draft';
           ?>
           <tr style="border-bottom:1px solid var(--color-border);">
             <td class="ps-4" style="vertical-align:middle; color:var(--color-text-muted);"><?= str_pad($i+1, 2, '0', STR_PAD_LEFT) ?></td>
@@ -71,7 +72,7 @@ unset($_SESSION['flash_success'], $_SESSION['flash_error']);
               </div>
             </td>
             <td style="vertical-align:middle;">
-              <span class="badge bg-<?= $sc ?>"><?= ucfirst(e($p['status'] ?? 'draft')) ?></span>
+              <span class="badge bg-<?= $sc ?>"><?= e($statusText) ?></span>
             </td>
             <td style="vertical-align:middle;">
               <div style="display:flex;gap:4px;flex-wrap:wrap;max-width:200px;">
@@ -88,9 +89,13 @@ unset($_SESSION['flash_success'], $_SESSION['flash_error']);
               <a href="<?= APP_URL ?>/admin/projects/form.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-outline-primary me-1" title="Edit">
                 <i class="bi bi-pencil"></i>
               </a>
-              <?php if (!empty($p['project_url'])): ?>
-                <a href="<?= e($p['project_url']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary me-1" title="View">
+              <?php if (!empty($p['demo_url'])): ?>
+                <a href="<?= e($p['demo_url']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary me-1" title="View Demo">
                   <i class="bi bi-box-arrow-up-right"></i>
+                </a>
+              <?php elseif (!empty($p['github_url'])): ?>
+                <a href="<?= e($p['github_url']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary me-1" title="View GitHub">
+                  <i class="bi bi-github"></i>
                 </a>
               <?php endif; ?>
               <form method="POST" action="<?= APP_URL ?>/admin/projects/delete.php" style="display:inline-block;"

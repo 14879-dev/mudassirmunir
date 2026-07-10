@@ -118,22 +118,22 @@ require_once __DIR__ . '/includes/header.php';
     <div class="stats-bar reveal">
       <div class="stat-item">
         <div class="stat-icon"><i class="bi bi-briefcase"></i></div>
-        <div class="stat-number">3+</div>
+        <div class="stat-number">2+</div>
         <div class="stat-label">Years of<br>Experience</div>
       </div>
       <div class="stat-item">
         <div class="stat-icon"><i class="bi bi-folder-check"></i></div>
-        <div class="stat-number">40+</div>
+        <div class="stat-number">7+</div>
         <div class="stat-label">Projects<br>Completed</div>
       </div>
       <div class="stat-item">
         <div class="stat-icon"><i class="bi bi-people"></i></div>
-        <div class="stat-number">25+</div>
+        <div class="stat-number">5+</div>
         <div class="stat-label">Happy<br>Clients</div>
       </div>
       <div class="stat-item">
         <div class="stat-icon"><i class="bi bi-award"></i></div>
-        <div class="stat-number">18</div>
+        <div class="stat-number">0</div>
         <div class="stat-label">Awards<br>Received</div>
       </div>
       <div class="stat-quote">
@@ -365,7 +365,7 @@ require_once __DIR__ . '/includes/header.php';
       <div class="projects-grid" id="projects-grid">
         <?php foreach ($projects as $i => $project):
           $tags = json_decode($project['tags'] ?? '[]', true) ?: [];
-          $num  = str_pad(($i + 1), 2, '0', STR_PAD_LEFT);
+          $num  = str_pad((string)($i + 1), 2, '0', STR_PAD_LEFT);
         ?>
           <div class="project-card-wrapper reveal delay-<?= ($i % 6 + 1) * 100 ?>"
                data-tags="<?= htmlspecialchars(json_encode($tags), ENT_QUOTES, 'UTF-8') ?>"
@@ -422,16 +422,13 @@ require_once __DIR__ . '/includes/header.php';
 
         <!-- Social row -->
         <div style="display:flex; gap:var(--space-2); margin-top:var(--space-4);">
-          <a href="https://linkedin.com" target="_blank" rel="noopener" class="btn btn--ghost btn--sm btn--circle" aria-label="LinkedIn" title="LinkedIn">
+          <a href="https://linkedin.com/in/mudassir-munir-794785393" target="_blank" rel="noopener" class="btn btn--ghost btn--sm btn--circle" aria-label="LinkedIn" title="LinkedIn">
             <i class="bi bi-linkedin"></i>
           </a>
           <a href="https://instagram.com" target="_blank" rel="noopener" class="btn btn--ghost btn--sm btn--circle" aria-label="Instagram" title="Instagram">
             <i class="bi bi-instagram"></i>
-          </a>
-          <a href="https://behance.net" target="_blank" rel="noopener" class="btn btn--ghost btn--sm btn--circle" aria-label="Behance" title="Behance">
-            <i class="bi bi-behance"></i>
-          </a>
-          <a href="https://github.com" target="_blank" rel="noopener" class="btn btn--ghost btn--sm btn--circle" aria-label="GitHub" title="GitHub">
+         
+          <a href="https://github.com/14879-dev" target="_blank" rel="noopener" class="btn btn--ghost btn--sm btn--circle" aria-label="GitHub" title="GitHub">
             <i class="bi bi-github"></i>
           </a>
         </div>
@@ -444,11 +441,11 @@ require_once __DIR__ . '/includes/header.php';
 
           <div class="contact-item">
             <div class="contact-icon"><i class="bi bi-envelope"></i></div>
-            <div class="contact-text">hello@mudassir.dev</div>
+            <div class="contact-text">mudassirmunir.dev@gmail.com</div>
           </div>
           <div class="contact-item">
             <div class="contact-icon"><i class="bi bi-telephone"></i></div>
-            <div class="contact-text">+92 (xxx) xxx-xxxx</div>
+            <div class="contact-text">+92 333-7252810</div>
           </div>
           <div class="contact-item">
             <div class="contact-icon"><i class="bi bi-geo-alt"></i></div>
@@ -456,7 +453,7 @@ require_once __DIR__ . '/includes/header.php';
           </div>
           <div class="contact-item">
             <div class="contact-icon"><i class="bi bi-globe2"></i></div>
-            <div class="contact-text">mudassir.dev</div>
+            <div class="contact-text">mudassirmunir.com</div>
           </div>
 
           <div class="neu-divider"></div>

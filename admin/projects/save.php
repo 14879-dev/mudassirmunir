@@ -2,8 +2,11 @@
 /**
  * Portfolio OS — Admin Projects: Save (Create + Update)
  */
+
 declare(strict_types=1);
 
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 require_once dirname(__DIR__, 2) . '/config/config.php';
 require_once dirname(__DIR__, 2) . '/includes/db.php';
 require_once dirname(__DIR__, 2) . '/includes/security.php';
@@ -89,11 +92,14 @@ $fields = [
     'title'             => $title,
     'slug'              => $slug,
     'short_description' => trim($_POST['short_description'] ?? ''),
-    'description'       => trim($_POST['description'] ?? ''),
-    'project_url'       => trim($_POST['project_url'] ?? ''),
+    'full_description'  => trim($_POST['full_description'] ?? ''),
+    'github_url'        => trim($_POST['github_url'] ?? ''),
     'demo_url'          => trim($_POST['demo_url'] ?? ''),
+    'store_url'         => trim($_POST['store_url'] ?? ''),
+    'role'              => trim($_POST['role'] ?? ''),
+    'tech_stack'        => !empty($_POST['tech_stack']) ? json_encode(array_values(array_filter(array_map('trim', explode(',', $_POST['tech_stack']))))) : null,
     'tags'              => $tagsJson,
-    'status'            => in_array($_POST['status'] ?? '', ['published','draft','archived']) ? $_POST['status'] : 'published',
+    'is_published'      => isset($_POST['is_published']) ? (int)$_POST['is_published'] : 1,
     'sort_order'        => max(0, (int)($_POST['sort_order'] ?? 0)),
     'thumbnail'         => $thumbnailFilename,
 ];
@@ -110,7 +116,7 @@ if ($isEdit) {
     $cols = implode(', ', array_keys($fields));
     $ph   = implode(', ', array_fill(0, count($fields), '?'));
     $newId = Database::insert("INSERT INTO projects ($cols) VALUES ($ph)", array_values($fields));
-    logAuditEvent($adminUser['id'], 'project.create', 'projects', $newId);
+    logAuditEvent($adminUser['id'], 'project.create', 'projects', (int)$newId);
     $_SESSION['flash_success'] = 'Project created successfully.';
 }
 

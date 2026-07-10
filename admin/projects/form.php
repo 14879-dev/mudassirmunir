@@ -2,6 +2,9 @@
 /**
  * Portfolio OS — Admin Projects: Add / Edit Form
  */
+require_once dirname(__DIR__, 2) . '/config/config.php';
+require_once dirname(__DIR__, 2) . '/includes/db.php';
+
 $isEdit = isset($_GET['id']) && is_numeric($_GET['id']);
 $project = null;
 
@@ -60,20 +63,46 @@ if ($isEdit && !empty($project['tags'])) {
 
     <div class="neu-input-group" style="margin-bottom:var(--space-5);">
       <label class="neu-label" style="position:static;font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;display:block;">Full Description</label>
-      <textarea name="description" class="neu-input neu-textarea" style="min-height:140px;" placeholder="Full project description..."><?= e($project['description'] ?? '') ?></textarea>
+      <textarea name="full_description" class="neu-input neu-textarea" style="min-height:140px;" placeholder="Full project description..."><?= e($project['full_description'] ?? '') ?></textarea>
     </div>
 
     <div class="grid-2" style="margin-bottom:var(--space-5);">
       <div class="neu-input-group">
-        <label class="neu-label" style="position:static;font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;display:block;">Project URL</label>
-        <input type="url" name="project_url" class="neu-input"
-               value="<?= e($project['project_url'] ?? '') ?>" placeholder="https://github.com/...">
+        <label class="neu-label" style="position:static;font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;display:block;">GitHub URL</label>
+        <input type="url" name="github_url" class="neu-input"
+               value="<?= e($project['github_url'] ?? '') ?>" placeholder="https://github.com/...">
       </div>
       <div class="neu-input-group">
         <label class="neu-label" style="position:static;font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;display:block;">Demo URL</label>
         <input type="url" name="demo_url" class="neu-input"
                value="<?= e($project['demo_url'] ?? '') ?>" placeholder="https://demo.example.com">
       </div>
+    </div>
+    
+    <div class="grid-2" style="margin-bottom:var(--space-5);">
+      <div class="neu-input-group">
+        <label class="neu-label" style="position:static;font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;display:block;">Store URL</label>
+        <input type="url" name="store_url" class="neu-input"
+               value="<?= e($project['store_url'] ?? '') ?>" placeholder="https://play.google.com/...">
+      </div>
+      <div class="neu-input-group">
+        <label class="neu-label" style="position:static;font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;display:block;">Role</label>
+        <input type="text" name="role" class="neu-input"
+               value="<?= e($project['role'] ?? '') ?>" placeholder="Lead Developer">
+      </div>
+    </div>
+    
+    <div class="neu-input-group" style="margin-bottom:var(--space-5);">
+      <label class="neu-label" style="position:static;font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;display:block;">Tech Stack (comma-separated)</label>
+      <?php
+        $techStr = '';
+        if ($isEdit && !empty($project['tech_stack'])) {
+            $tArr = json_decode($project['tech_stack'], true);
+            if (is_array($tArr)) $techStr = implode(', ', $tArr);
+        }
+      ?>
+      <input type="text" name="tech_stack" class="neu-input"
+             value="<?= e($techStr) ?>" placeholder="React, Node.js, MongoDB">
     </div>
 
     <div class="grid-2" style="margin-bottom:var(--space-5);">
@@ -84,10 +113,9 @@ if ($isEdit && !empty($project['tags'])) {
       </div>
       <div class="neu-input-group">
         <label class="neu-label" style="position:static;font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;display:block;">Status</label>
-        <select name="status" class="neu-input">
-          <option value="published" <?= ($project['status'] ?? 'published') === 'published' ? 'selected' : '' ?>>Published</option>
-          <option value="draft"     <?= ($project['status'] ?? '') === 'draft' ? 'selected' : '' ?>>Draft</option>
-          <option value="archived"  <?= ($project['status'] ?? '') === 'archived' ? 'selected' : '' ?>>Archived</option>
+        <select name="is_published" class="neu-input">
+          <option value="1" <?= ($project['is_published'] ?? 1) == 1 ? 'selected' : '' ?>>Published</option>
+          <option value="0" <?= isset($project['is_published']) && $project['is_published'] == 0 ? 'selected' : '' ?>>Draft</option>
         </select>
       </div>
     </div>
