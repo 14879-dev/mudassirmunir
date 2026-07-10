@@ -1,0 +1,12 @@
+node_modules/
+vendor/
+.env
+.DS_Store
+Thumbs.db
+uploads/projects/*
+!uploads/projects/.htaccess
+uploads/hero/*
+!uploads/hero/.htaccess
+uploads/cv/*
+!uploads/cv/.htaccess
+

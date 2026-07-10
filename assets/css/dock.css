@@ -1,0 +1,89 @@
+/**
+ * Portfolio — Dock Navigation (Icon-Only, Nova Glass theme)
+ */
+
+.dock-wrapper {
+  position: fixed;
+  bottom: var(--dock-offset);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-dock);
+  pointer-events: none;
+}
+
+.dock {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: rgba(220,232,250,0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.8);
+  border-radius: 999px;
+  box-shadow: 0 8px 32px rgba(91,142,240,0.15), 0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
+  pointer-events: auto;
+  height: var(--dock-h);
+}
+
+.dock-separator {
+  width: 1px; height: 28px;
+  background: rgba(180,200,230,0.6);
+  margin: 0 4px;
+}
+
+.dock-item {
+  position: relative;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--color-text-muted);
+  transition: all 160ms ease;
+  outline: none;
+}
+
+.dock-icon {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 160ms ease, color 160ms ease;
+  line-height: 1;
+}
+
+/* Ensure Bootstrap Icon font renders — override Bootstrap reboot */
+.dock-icon .bi {
+  font-size: 20px !important;
+  line-height: 1 !important;
+  display: inline-block !important;
+  font-family: "bootstrap-icons" !important;
+  font-style: normal !important;
+}
+
+.dock-item:hover { background: rgba(255,255,255,0.5); }
+.dock-item:hover .dock-icon { color: var(--color-accent); transform: translateY(-3px); }
+.dock-item:focus-visible { box-shadow: 0 0 0 2px var(--color-accent); }
+
+/* Active state */
+.dock-dot {
+  position: absolute; bottom: 3px;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--color-accent);
+  opacity: 0; transform: scale(0);
+  transition: all 240ms cubic-bezier(.34,1.56,.64,1);
+}
+.dock-item.active .dock-icon  { color: var(--color-accent); }
+.dock-item.active .dock-dot   { opacity: 1; transform: scale(1); }
+
+/* NO text labels */
+.dock-label, .dock-item-label-mobile { display: none !important; }
+
+/* Mobile */
+@media (max-width: 640px) {
+  .dock { gap: 2px; padding: 8px 12px; }
+  .dock-item { width: 40px; height: 40px; border-radius: 10px; }
+  .dock-icon { font-size: 18px; }
+  .dock-separator { display: none; }
+}

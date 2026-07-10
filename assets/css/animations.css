@@ -1,0 +1,224 @@
+/**
+ * Portfolio OS — Animations & Motion
+ * Keyframes, entrance animations, and interaction micro-animations.
+ */
+
+/* ── Entrance Animations ────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeRight {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── Glow Pulse ─────────────────────────────────────── */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px var(--color-accent-glow); }
+  50%       { box-shadow: 0 0 40px rgba(167, 139, 250, 0.6); }
+}
+
+/* ── Typewriter cursor ──────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Floating (hero profile) ────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+/* ── Gradient shift (hero bg) ───────────────────────── */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── Spin (loading) ─────────────────────────────────── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Shimmer (skeleton loading) ─────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ── Star/particle float ────────────────────────────── */
+@keyframes particleFloat {
+  0%   { transform: translateY(0) translateX(0) scale(1);    opacity: 0.6; }
+  33%  { transform: translateY(-20px) translateX(10px) scale(1.1); opacity: 0.8; }
+  66%  { transform: translateY(-10px) translateX(-8px) scale(0.9); opacity: 0.5; }
+  100% { transform: translateY(0) translateX(0) scale(1);    opacity: 0.6; }
+}
+
+/* ── Tag filter bounce ──────────────────────────────── */
+@keyframes tagSelect {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(0.92); }
+  70%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* ── Toast slide in ─────────────────────────────────── */
+@keyframes toastIn {
+  from { transform: translateY(20px) translateX(-50%); opacity: 0; }
+  to   { transform: translateY(0) translateX(-50%);    opacity: 1; }
+}
+
+/* ── Utility Classes ────────────────────────────────── */
+
+.animate-fade-in  { animation: fadeIn  var(--duration-slow) var(--ease-out) both; }
+.animate-fade-up  { animation: fadeUp  var(--duration-slow) var(--ease-out) both; }
+.animate-fade-down{ animation: fadeDown var(--duration-slow) var(--ease-out) both; }
+.animate-scale-in { animation: scaleIn var(--duration-slow) var(--ease-spring) both; }
+.animate-slide-up { animation: slideUp var(--duration-slow) var(--ease-out) both; }
+.animate-float    { animation: float 4s var(--ease-smooth) infinite; }
+.animate-spin     { animation: spin 1s linear infinite; }
+.animate-glow     { animation: glowPulse 2.5s ease-in-out infinite; }
+
+/* Delay utilities */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+.delay-800 { animation-delay: 800ms; }
+
+/* ── Scroll Reveal ──────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.from-left  { transform: translateX(-32px); }
+.reveal.from-right { transform: translateX(32px); }
+.reveal.from-left.revealed,
+.reveal.from-right.revealed { transform: translateX(0); }
+
+/* ── Skeleton Loader ────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface) 25%,
+    var(--color-surface-2) 50%,
+    var(--color-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ── Toast Notification ─────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: calc(var(--dock-height-desktop) + var(--dock-bottom-offset) + 20px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-toast);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+  animation: toastIn var(--duration-normal) var(--ease-spring) both;
+  box-shadow: var(--glass-shadow);
+  white-space: nowrap;
+  max-width: 90vw;
+}
+.toast--success { border-color: rgba(52,211,153,0.4); color: var(--color-success); }
+.toast--error   { border-color: rgba(248,113,113,0.4); color: var(--color-error); }
+
+/* ── Loading Spinner ────────────────────────────────── */
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+.spinner--lg {
+  width: 48px;
+  height: 48px;
+  border-width: 4px;
+}
+
+/* ── Hero Background Orbs ───────────────────────────── */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: particleFloat 8s var(--ease-smooth) infinite;
+}
+.hero-orb--1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(167,139,250,0.25) 0%, transparent 70%);
+  top: -100px;
+  right: -100px;
+  animation-delay: 0s;
+}
+.hero-orb--2 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(210,224,251,0.2) 0%, transparent 70%);
+  bottom: 20%;
+  left: -80px;
+  animation-delay: -3s;
+}
+.hero-orb--3 {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255,235,204,0.15) 0%, transparent 70%);
+  top: 40%;
+  left: 30%;
+  animation-delay: -5s;
+}

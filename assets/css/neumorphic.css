@@ -1,0 +1,131 @@
+/**
+ * Portfolio — Component Styles (Nova Glass)
+ * Replaces neumorphic with clean glass components
+ */
+
+/* ── Cards ──────────────────────────────────────────── */
+.neu-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+  padding: var(--space-6);
+  position: relative;
+  transition: box-shadow var(--dur-normal), transform var(--dur-normal);
+  overflow: hidden;
+}
+.neu-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, transparent 60%);
+  border-radius: inherit; pointer-events: none;
+}
+.neu-card:hover { box-shadow: var(--glass-shadow-hover); transform: translateY(-2px); }
+.neu-card--inset {
+  background: rgba(255,255,255,0.35);
+  border: 1px solid rgba(255,255,255,0.6);
+}
+
+/* ── Buttons ────────────────────────────────────────── */
+.btn-neu, .btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  padding: 11px 24px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display); font-size: var(--text-sm);
+  font-weight: 600; cursor: pointer; border: none;
+  transition: all var(--dur-fast) var(--ease);
+  text-decoration: none; white-space: nowrap;
+}
+.btn--circle {
+  width: 44px; height: 44px; padding: 0 !important;
+  border-radius: 50% !important; flex-shrink: 0;
+}
+.btn-neu--primary, .btn--primary {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+  color: #fff; box-shadow: 0 4px 16px var(--color-accent-glow);
+}
+.btn-neu--primary:hover, .btn--primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px var(--color-accent-glow); color:#fff; }
+.btn-neu--secondary, .btn--secondary {
+  background: rgba(255,255,255,0.6); backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border); color: var(--color-text-secondary);
+}
+.btn-neu--secondary:hover, .btn--secondary:hover { border-color: var(--color-border-accent); color: var(--color-accent); }
+.btn-neu--ghost, .btn--ghost { background: rgba(255,255,255,0.4); border: 1px solid var(--color-border-inner); color: var(--color-text-primary); }
+.btn-neu--ghost:hover, .btn--ghost:hover { background: #fff; color: var(--color-accent); }
+.btn-neu--sm, .btn--sm  { padding: 7px 14px; font-size: var(--text-xs); border-radius: var(--radius-sm); }
+.btn-neu--lg, .btn--lg  { padding: 14px 32px; font-size: var(--text-base); }
+
+/* ── Inputs ─────────────────────────────────────────── */
+.neu-input-group { margin-bottom: var(--space-4); position: relative; }
+.neu-input {
+  width: 100%; padding: 13px 16px;
+  background: rgba(255,255,255,0.6); backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+  font-family: var(--font-sans); font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+.neu-input:focus { outline: none; border-color: var(--color-border-accent); box-shadow: 0 0 0 3px var(--color-accent-soft); }
+.neu-textarea  { min-height: 130px; resize: vertical; }
+.neu-label {
+  position: absolute; left: 16px; top: 13px;
+  color: var(--color-text-muted); font-size: var(--text-sm);
+  transition: all var(--dur-fast); pointer-events: none;
+}
+.neu-input:focus ~ .neu-label,
+.neu-input:not(:placeholder-shown) ~ .neu-label {
+  top: -9px; left: 12px; font-size: var(--text-xs);
+  background: white; padding: 0 4px; color: var(--color-accent);
+}
+
+/* ── Badges ─────────────────────────────────────────── */
+.neu-badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px; border-radius: var(--radius-full);
+  font-size: var(--text-xs); font-weight: 600;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.neu-badge--accent { background: var(--color-accent-soft); color: var(--color-accent); border: 1px solid var(--color-border-accent); }
+.neu-badge--peach, .neu-badge--cream, .neu-badge--lavender { background: rgba(255,255,255,0.6); color: var(--color-text-secondary); border: 1px solid var(--color-border-inner); }
+.neu-badge--success { background: rgba(16,185,129,0.1); color: var(--color-success); border: 1px solid rgba(16,185,129,0.3); }
+
+/* ── Alerts ─────────────────────────────────────────── */
+.neu-alert {
+  padding: var(--space-4); border-radius: var(--radius-md);
+  font-size: var(--text-sm); border-left: 4px solid var(--color-accent);
+  background: rgba(255,255,255,0.7); color: var(--color-text-primary);
+  backdrop-filter: blur(8px);
+}
+.neu-alert--success { border-color: var(--color-success); }
+.neu-alert--error   { border-color: var(--color-error); }
+
+/* ── Progress Bar ────────────────────────────────────── */
+.neu-progress {
+  height: 5px; background: rgba(91,142,240,0.12);
+  border-radius: var(--radius-full); overflow: hidden;
+}
+.neu-progress__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-2));
+  transition: width 1.2s var(--ease);
+}
+
+/* ── Divider ────────────────────────────────────────── */
+.neu-divider { height: 1px; background: var(--color-border-inner); margin: var(--space-6) 0; }
+
+/* ── Toast ───────────────────────────────────────────── */
+.toast {
+  position: fixed; bottom: calc(var(--dock-h) + var(--dock-offset) + 12px);
+  left: 50%; transform: translateX(-50%);
+  background: var(--glass-bg); backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-full);
+  padding: 10px 24px; font-size: var(--text-sm); font-weight: 600;
+  color: var(--color-text-primary); z-index: 999;
+  box-shadow: var(--glass-shadow-lg);
+  animation: fadeUp .25s ease;
+  transition: opacity .3s, transform .3s;
+}
+.toast--success { border-color: rgba(16,185,129,0.5); color: var(--color-success); }
+.toast--error   { border-color: rgba(239,68,68,0.5); color: var(--color-error); }
