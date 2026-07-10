@@ -357,6 +357,14 @@ code {
   .hero-bio { max-width: 100%; }
   .hero-cta { justify-content: center; }
   .hero-right { margin-top: var(--space-8); }
+  .hero-photo-frame { justify-content: center; }
+  .hero-photo-frame img {
+    width: 120%; /* Slightly smaller than 140% to fit better */
+    transform: scale(1) translate(0, 0);
+    object-position: center top;
+    -webkit-mask-image: radial-gradient(circle at 50% 40%, black 30%, transparent 70%);
+    mask-image: radial-gradient(circle at 50% 40%, black 30%, transparent 70%);
+  }
 }
 
 /* ── BUTTONS ─────────────────────────────────────────── */
