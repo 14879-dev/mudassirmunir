@@ -94,4 +94,4 @@ unset($_SESSION['flash_error']);
   </form>
 </div>
 
-<?php require_once dirname(__DIR__) . '/../includes/admin-footer.php'; ?>
+<?php require_once dirname(__DIR__) . '/includes/admin-footer.php'; ?>

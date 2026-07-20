@@ -83,4 +83,4 @@ unset($_SESSION['flash_success'], $_SESSION['flash_error']);
   </div>
 </div>
 
-<?php require_once dirname(__DIR__) . '/../includes/admin-footer.php'; ?>
+<?php require_once dirname(__DIR__) . '/includes/admin-footer.php'; ?>
