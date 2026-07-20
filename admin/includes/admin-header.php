@@ -79,6 +79,43 @@ $activeMenu = $activeMenu ?? 'dashboard';
       .admin-sidebar.open { transform: translateX(0); }
       .admin-content { margin-left: 0; padding: var(--space-4); }
     }
+
+    /* ── Admin form/card overrides — solid so they're always visible ── */
+    .admin-content .neu-card {
+      background: #ffffff;
+      border: 1px solid #d1dce8;
+      box-shadow: 0 2px 12px rgba(91,142,240,0.08);
+      backdrop-filter: none;
+    }
+    .admin-content .neu-card::before { display: none; }
+
+    .admin-content .neu-input {
+      background: #f7f9fc;
+      border: 1.5px solid #c8d8ec;
+      color: #0f1923;
+      backdrop-filter: none;
+    }
+    .admin-content .neu-input:focus {
+      background: #fff;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(91,142,240,0.15);
+    }
+    .admin-content .neu-label {
+      color: #4a5568;
+    }
+    .admin-content .neu-input:focus ~ .neu-label,
+    .admin-content .neu-input:not(:placeholder-shown) ~ .neu-label {
+      background: #fff;
+    }
+    .admin-content textarea.neu-input {
+      min-height: 160px;
+    }
+    .admin-content .form-check-input {
+      width: 2.5em; height: 1.25em; cursor: pointer;
+    }
+    .admin-content label.form-check-label {
+      font-size: var(--text-base); color: var(--color-text-secondary);
+    }
   </style>
 </head>
 <body>
