@@ -98,8 +98,6 @@ require_once __DIR__ . '/includes/header.php';
           <?php endif; ?>
           <div class="frame-glow" aria-hidden="true"></div>
 
-          
-
           <!-- Decorative orbit ring -->
           <div class="hero-orbit" aria-hidden="true">
             <div class="hero-orbit-inner">✦</div>
@@ -178,14 +176,24 @@ require_once __DIR__ . '/includes/header.php';
           <?php else: ?>
             <div class="timeline">
               <div class="timeline-item">
-                <div class="timeline-year">2022 – Present</div>
+                <div class="timeline-year">2023</div>
+                <div class="timeline-title">Co-Founder, Hexspire Solutions</div>
+                <div class="timeline-sub">Web Studio</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">2023 – Present</div>
                 <div class="timeline-title">BS Software Engineering</div>
                 <div class="timeline-sub">CUSIT Peshawar</div>
               </div>
               <div class="timeline-item">
-                <div class="timeline-year">2023</div>
-                <div class="timeline-title">Co-Founder, Hexspire Solutions</div>
-                <div class="timeline-sub">Game &amp; Web Studio</div>
+                <div class="timeline-year">2021 – 2023</div>
+                <div class="timeline-title">F.Sc Pre-medical</div>
+                <div class="timeline-sub">Government college Peshawar</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">2021</div>
+                <div class="timeline-title">Metriculation</div>
+                <div class="timeline-sub">PMS Branch Boys V</div>
               </div>
             </div>
           <?php endif; ?>
@@ -246,15 +254,15 @@ require_once __DIR__ . '/includes/header.php';
         <div class="tech-grid mt-6">
           <?php
           $techItems = [
-            ['icon'=>'devicon-unity-original',          'label'=>'Unity'],
-            ['icon'=>'devicon-csharp-plain',            'label'=>'C#'],
-            ['icon'=>'devicon-php-plain',               'label'=>'PHP'],
-            ['icon'=>'devicon-react-original',          'label'=>'React'],
-            ['icon'=>'devicon-nodejs-plain',            'label'=>'Node.js'],
-            ['icon'=>'devicon-python-plain',            'label'=>'Python'],
-            ['icon'=>'devicon-mysql-plain',             'label'=>'MySQL'],
-            ['icon'=>'devicon-javascript-plain',        'label'=>'JS'],
-            ['icon'=>'devicon-git-plain',               'label'=>'Git'],
+            ['icon'=>'devicon-unity-original',   'label'=>'Unity'],
+            ['icon'=>'devicon-csharp-plain',      'label'=>'C#'],
+            ['icon'=>'devicon-php-plain',          'label'=>'PHP'],
+            ['icon'=>'devicon-react-original',    'label'=>'React'],
+            ['icon'=>'devicon-nodejs-plain',       'label'=>'Node.js'],
+            ['icon'=>'devicon-python-plain',       'label'=>'Python'],
+            ['icon'=>'devicon-mysql-plain',        'label'=>'MySQL'],
+            ['icon'=>'devicon-javascript-plain',   'label'=>'JS'],
+            ['icon'=>'devicon-git-plain',          'label'=>'Git'],
           ];
           foreach ($techItems as $ti): ?>
             <div class="tech-item">
@@ -288,10 +296,9 @@ require_once __DIR__ . '/includes/header.php';
         <!-- Service list -->
         <?php
         $services = [
-          ['icon'=>'bi-controller',    'title'=>'Game Development',  'desc'=>'Immersive 2D/3D Unity games with engaging mechanics.'],
-          ['icon'=>'bi-globe2',        'title'=>'Web Development',   'desc'=>'Full-stack apps with React, PHP & MySQL.'],
-          ['icon'=>'bi-robot',         'title'=>'AI & Automation',   'desc'=>'Intelligent systems, trading bots & LangGraph agents.'],
-          ['icon'=>'bi-phone',         'title'=>'Mobile Apps',       'desc'=>'Cross-platform apps for Android & iOS.'],
+          ['icon'=>'bi-controller', 'title'=>'Game Development', 'desc'=>'Immersive 2D/3D Unity games with engaging mechanics.'],
+          ['icon'=>'bi-globe2',     'title'=>'Web Development',  'desc'=>'Full-stack apps with React, PHP & MySQL.'],
+          ['icon'=>'bi-phone',      'title'=>'Mobile Apps',      'desc'=>'Cross-platform apps for Android & iOS.'],
         ];
         foreach ($services as $svc): ?>
           <div class="glass-card glass-card--sm mb-3 flex gap-3 items-center" style="padding:var(--space-3) var(--space-4);">
@@ -401,6 +408,7 @@ require_once __DIR__ . '/includes/header.php';
     <?php endif; ?>
   </div>
 </section>
+
 <!-- ═══════════════════════════════════════════════════ -->
 <!--  BLOGS SECTION                                      -->
 <!-- ═══════════════════════════════════════════════════ -->
@@ -450,6 +458,7 @@ require_once __DIR__ . '/includes/header.php';
     <?php endif; ?>
   </div>
 </section>
+
 <!-- ═══════════════════════════════════════════════════ -->
 <!--  CONTACT SECTION                                    -->
 <!-- ═══════════════════════════════════════════════════ -->
@@ -477,7 +486,7 @@ require_once __DIR__ . '/includes/header.php';
           </a>
           <a href="https://instagram.com" target="_blank" rel="noopener" class="btn btn--ghost btn--sm btn--circle" aria-label="Instagram" title="Instagram">
             <i class="bi bi-instagram"></i>
-         
+          </a>
           <a href="https://github.com/14879-dev" target="_blank" rel="noopener" class="btn btn--ghost btn--sm btn--circle" aria-label="GitHub" title="GitHub">
             <i class="bi bi-github"></i>
           </a>
@@ -503,7 +512,7 @@ require_once __DIR__ . '/includes/header.php';
           </div>
           <div class="contact-item">
             <div class="contact-icon"><i class="bi bi-globe2"></i></div>
-            <div class="contact-text">mudassirmunir.com</div>
+            <div class="contact-text">hexspire.site</div>
           </div>
 
           <div class="neu-divider"></div>
@@ -537,8 +546,6 @@ require_once __DIR__ . '/includes/header.php';
           </form>
         </div>
       </div>
-
-      <!-- Removed right side panel based on user feedback -->
 
     </div><!-- /.contact-layout -->
   </div>
