@@ -4,7 +4,7 @@
  */
 $pageTitle  = 'Blog Form';
 $activeMenu = 'blogs';
-require_once dirname(__DIR__) . '/../includes/admin-header.php';
+require_once dirname(__DIR__) . '/includes/admin-header.php';
 
 $id = (int)($_GET['id'] ?? 0);
 $isEdit = $id > 0;

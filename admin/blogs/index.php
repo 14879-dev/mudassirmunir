@@ -4,7 +4,7 @@
  */
 $pageTitle  = 'Manage Blogs';
 $activeMenu = 'blogs';
-require_once dirname(__DIR__) . '/../includes/admin-header.php';
+require_once dirname(__DIR__) . '/includes/admin-header.php';
 
 $blogs = Database::selectAll("SELECT id, title, slug, is_published, views, created_at FROM blogs ORDER BY created_at DESC");
 
