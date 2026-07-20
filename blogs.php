@@ -28,7 +28,7 @@ require_once __DIR__ . '/includes/header.php';
 
     <div class="section-header reveal">
       <div class="overline">THOUGHTS & INSIGHTS</div>
-      <h1 class="section-title" id="blogs-page-heading">ALL <span style="color:var(--color-accent);">BLOGS</span></h1>
+      <h1 class="section-title" id="blogs-page-heading">ALL <span style="background:linear-gradient(135deg,#7bb3ff 0%,#3a6dd8 25%,#ffffff 50%,#3a6dd8 75%,#1d4ed8 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shine 5s linear infinite;">BLOGS</span></h1>
       <p class="section-sub">Writing about code, design, and building things.</p>
     </div>
 
