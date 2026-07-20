@@ -44,12 +44,25 @@ if ($id > 0) {
     $coverImage = $current['cover_image'] ?? '';
 }
 
-if (!empty($_FILES['cover_image']['name'])) {
-    $uploaded = handleUpload($_FILES['cover_image'], 'blogs');
-    if ($uploaded) {
-        $coverImage = $uploaded;
+// Ensure blogs upload dir exists
+$blogsDir = UPLOAD_PATH . '/blogs';
+if (!is_dir($blogsDir)) mkdir($blogsDir, 0755, true);
+
+if (!empty($_FILES['cover_image']['tmp_name'])) {
+    $upload = processUpload(
+        $_FILES['cover_image'],
+        $blogsDir,
+        ALLOWED_IMG_TYPES,
+        2 * 1024 * 1024 // 2MB
+    );
+    if ($upload['success']) {
+        // Delete old cover image if it exists
+        if ($coverImage && file_exists($blogsDir . '/' . $coverImage)) {
+            unlink($blogsDir . '/' . $coverImage);
+        }
+        $coverImage = $upload['filename'];
     } else {
-        $_SESSION['flash_error'] = "Failed to upload image. Max size 2MB, allowed types: JPG, PNG, WEBP.";
+        $_SESSION['flash_error'] = "Upload failed: " . ($upload['error'] ?? "Unknown error");
         redirect('/admin/blogs/form.php?id=' . $id);
     }
 }
