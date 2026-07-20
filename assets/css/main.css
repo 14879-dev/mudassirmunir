@@ -254,13 +254,13 @@ code {
   line-height: .95;
   letter-spacing: -2px;
   margin-bottom: var(--space-4);
-  background: linear-gradient(135deg, #f0c265 0%, #d4af37 25%, #fff4d0 50%, #d4af37 75%, #a87b1e 100%);
+  background: linear-gradient(135deg, #7bb3ff 0%, #3a6dd8 25%, #ffffff 50%, #3a6dd8 75%, #1d4ed8 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: shine 5s linear infinite;
-  filter: drop-shadow(0 8px 16px rgba(212, 175, 55, 0.35));
+  filter: drop-shadow(0 8px 16px rgba(91, 142, 240, 0.35));
 }
 
 @keyframes shine {

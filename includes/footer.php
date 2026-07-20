@@ -7,7 +7,7 @@ $navItems = [
   'home'     => ['label'=>'Home',     'icon'=>'bi-house-fill',              'href'=> APP_URL . '/index.php#home'],
   'about'    => ['label'=>'About Me', 'icon'=>'bi-person-fill',             'href'=> APP_URL . '/index.php#about'],
   'projects' => ['label'=>'Projects', 'icon'=>'bi-layers-fill',             'href'=> APP_URL . '/index.php#projects'],
-  'blog'     => ['label'=>'Blog',     'icon'=>'bi-journal-text',            'href'=> APP_URL . '/blogs.php'],
+  'blog'     => ['label'=>'Blog',     'icon'=>'bi-journal-text',            'href'=> APP_URL . '/index.php#blog'],
   'contact'  => ['label'=>'Contact',  'icon'=>'bi-envelope-fill',           'href'=> APP_URL . '/index.php#contact'],
   'cv'       => ['label'=>'Resume',   'icon'=>'bi-file-earmark-arrow-down', 'href'=> APP_URL . '/cv-download.php'],
 ];
