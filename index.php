@@ -27,6 +27,7 @@ $projects    = Database::select("SELECT * FROM projects WHERE is_published=1 ORD
 $allTags = [];
 foreach ($projects as $p) { foreach ((json_decode($p['tags'] ?? '[]', true) ?: []) as $t) { $allTags[$t] = true; } }
 $allTags = array_keys($allTags); sort($allTags);
+$recentBlogs = Database::select("SELECT id, title, slug, excerpt, cover_image, views, created_at FROM blogs WHERE is_published=1 ORDER BY created_at DESC LIMIT 2");
 
 $pageTitle  = ($hero['full_name'] ?? 'Mudassir') . " — Portfolio";
 $pageDesc   = "Software Engineering student, game developer, web developer & co-founder of Hexspire Solutions.";
@@ -396,6 +397,55 @@ require_once __DIR__ . '/includes/header.php';
       </div>
       <div id="no-results" class="text-center text-muted mt-8" style="display:none;">
         <p>No projects found.</p>
+      </div>
+    <?php endif; ?>
+  </div>
+</section>
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  BLOGS SECTION                                      -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="blog" class="page-section" aria-labelledby="blog-heading">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="overline">THOUGHTS &amp; INSIGHTS</div>
+      <h2 class="section-title" id="blog-heading">RECENT <span style="background:linear-gradient(135deg,#f0c265,#d4af37,#fff4d0,#d4af37);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shine 5s linear infinite;">BLOGS</span></h2>
+      <p class="section-sub">Writing about code, design, and building things.</p>
+    </div>
+
+    <?php if (empty($recentBlogs)): ?>
+      <div class="text-center text-muted py-5">
+        <i class="bi bi-journal-x" style="font-size:3rem;opacity:.3;"></i>
+        <p class="mt-3">No blog posts yet — check back soon!</p>
+      </div>
+    <?php else: ?>
+      <div class="grid-2 reveal" style="gap:var(--space-6);">
+        <?php foreach ($recentBlogs as $b): ?>
+          <a href="<?= APP_URL ?>/blog.php?slug=<?= e($b['slug']) ?>" class="blog-card" style="text-decoration:none;">
+            <?php if (!empty($b['cover_image'])): ?>
+              <div class="blog-card__img">
+                <img src="<?= APP_URL ?>/uploads/blogs/<?= e($b['cover_image']) ?>" alt="<?= e($b['title']) ?>" loading="lazy">
+              </div>
+            <?php else: ?>
+              <div class="blog-card__img blog-card__img--placeholder">
+                <i class="bi bi-journal-richtext"></i>
+              </div>
+            <?php endif; ?>
+            <div class="blog-card__body">
+              <div class="blog-card__meta">
+                <span><i class="bi bi-calendar3"></i> <?= date('M j, Y', strtotime($b['created_at'])) ?></span>
+                <span><i class="bi bi-eye"></i> <?= e($b['views']) ?> views</span>
+              </div>
+              <h3 class="blog-card__title"><?= e($b['title']) ?></h3>
+              <p class="blog-card__excerpt"><?= e(mb_substr($b['excerpt'] ?? '', 0, 120)) ?><?= strlen($b['excerpt'] ?? '') > 120 ? '…' : '' ?></p>
+              <span class="blog-card__read">Read more <i class="bi bi-arrow-right"></i></span>
+            </div>
+          </a>
+        <?php endforeach; ?>
+      </div>
+      <div class="text-center mt-8 reveal">
+        <a href="<?= APP_URL ?>/blogs.php" class="btn btn--ghost btn--lg">
+          <i class="bi bi-journal-text"></i> View All Blogs <i class="bi bi-arrow-right"></i>
+        </a>
       </div>
     <?php endif; ?>
   </div>

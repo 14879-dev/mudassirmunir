@@ -13,6 +13,7 @@ $canonicalUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#dde6f5">
+  <link rel="icon" type="image/svg+xml" href="<?= APP_URL ?>/favicon.svg">
 
   <!-- SEO -->
   <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
@@ -26,6 +27,17 @@ $canonicalUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER
   <meta property="og:description" content="<?= htmlspecialchars($pageDesc, ENT_QUOTES, 'UTF-8') ?>">
   <meta property="og:type"        content="website">
   <meta property="og:url"         content="<?= htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8') ?>">
+  <?php if (isset($ogImage)): ?>
+  <meta property="og:image"       content="<?= htmlspecialchars($ogImage, ENT_QUOTES, 'UTF-8') ?>">
+  <?php endif; ?>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"       content="<?= isset($ogImage) ? 'summary_large_image' : 'summary' ?>">
+  <meta name="twitter:title"      content="<?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?>">
+  <meta name="twitter:description" content="<?= htmlspecialchars($pageDesc, ENT_QUOTES, 'UTF-8') ?>">
+  <?php if (isset($ogImage)): ?>
+  <meta name="twitter:image"      content="<?= htmlspecialchars($ogImage, ENT_QUOTES, 'UTF-8') ?>">
+  <?php endif; ?>
 
   <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

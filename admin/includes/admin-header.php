@@ -20,6 +20,7 @@ $activeMenu = $activeMenu ?? 'dashboard';
   <meta charset="UTF-8">
   <title><?= e($pageTitle) ?> — Portfolio OS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="<?= APP_URL ?>/favicon.svg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/design-tokens.css">
@@ -94,10 +95,15 @@ $activeMenu = $activeMenu ?? 'dashboard';
       <i class="bi bi-grid-1x2"></i> Dashboard
     </a>
     <a href="<?= APP_URL ?>/admin/projects/" class="admin-nav-item <?= $activeMenu === 'projects' ? 'active' : '' ?>">
-      <i class="bi bi-box"></i> Projects
+      <i class="bi bi-briefcase"></i> Projects
     </a>
+    
+    <a href="<?= APP_URL ?>/admin/blogs/" class="admin-nav-item <?= $activeMenu === 'blogs' ? 'active' : '' ?>">
+      <i class="bi bi-journal-text"></i> Blogs
+    </a>
+    
     <a href="<?= APP_URL ?>/admin/skills/" class="admin-nav-item <?= $activeMenu === 'skills' ? 'active' : '' ?>">
-      <i class="bi bi-cpu"></i> Skills & Langs
+      <i class="bi bi-code-slash"></i> Skills &amp; Tools
     </a>
     <a href="<?= APP_URL ?>/admin/about/" class="admin-nav-item <?= $activeMenu === 'about' ? 'active' : '' ?>">
       <i class="bi bi-person"></i> Hero & Bio

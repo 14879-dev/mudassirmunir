@@ -188,3 +188,20 @@ CREATE TABLE IF NOT EXISTS rate_limits (
     UNIQUE KEY uk_ip_endpoint (ip_address, endpoint),
     INDEX idx_window (window_start)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ---- Blogs ----
+CREATE TABLE IF NOT EXISTS blogs (
+    id           INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title        VARCHAR(255) NOT NULL,
+    slug         VARCHAR(255) NOT NULL UNIQUE,
+    excerpt      TEXT         NULL,
+    content      LONGTEXT     NULL,
+    cover_image  VARCHAR(500) NULL,
+    is_published TINYINT(1)   NOT NULL DEFAULT 1,
+    views        INT UNSIGNED NOT NULL DEFAULT 0,
+    created_at   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_slug (slug),
+    INDEX idx_published (is_published),
+    INDEX idx_created (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
