@@ -254,12 +254,7 @@ code {
   line-height: .95;
   letter-spacing: -2px;
   margin-bottom: var(--space-4);
-  background: linear-gradient(135deg, #7bb3ff 0%, #3a6dd8 25%, #ffffff 50%, #3a6dd8 75%, #1d4ed8 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shine 5s linear infinite;
+  color: var(--color-accent);
   filter: drop-shadow(0 8px 16px rgba(91, 142, 240, 0.35));
 }
 
