@@ -58,7 +58,7 @@ $canonicalUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER
   <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/neumorphic.css">
   <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/dock.css">
   <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/animations.css">
-  <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/main.css">
+  <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/main.css?v=<?= filemtime(__DIR__ . '/../assets/css/main.css') ?>">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="<?= APP_URL ?>/assets/images/favicon.svg">
