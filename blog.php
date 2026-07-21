@@ -76,7 +76,13 @@ require_once __DIR__ . '/includes/header.php';
 
     <!-- Content -->
     <div class="neu-card reveal" style="line-height:1.85;font-size:var(--text-base);color:var(--color-text-primary);" itemprop="articleBody">
-      <?= nl2br(e($post['content'])) ?>
+      <?php
+        if (strip_tags($post['content'] ?? '') !== ($post['content'] ?? '')) {
+            echo $post['content'];
+        } else {
+            echo nl2br(e($post['content'] ?? ''));
+        }
+      ?>
     </div>
 
     <!-- Footer -->

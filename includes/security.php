@@ -229,3 +229,13 @@ function sendSecurityHeaders(): void
         header('X-XSS-Protection: 0'); // Modern browsers ignore; CSP is better
     }
 }
+
+// ============================================================
+// REDIRECT HELPER
+// ============================================================
+
+function redirect(string $path): never
+{
+    header('Location: ' . APP_URL . $path);
+    exit;
+}
