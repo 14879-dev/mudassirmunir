@@ -31,7 +31,9 @@ function env(string $key, mixed $default = null): mixed {
 
 // ---- Application ----
 define('APP_NAME',  env('APP_NAME',  "Mudassir's Portfolio"));
-define('APP_URL',   env('APP_URL',   'http://localhost/portfolio'));
+$currentHost = $_SERVER['HTTP_HOST'] ?? '';
+$isLocalServer = str_starts_with($currentHost, 'localhost') || str_starts_with($currentHost, '127.0.0.1');
+define('APP_URL',   $isLocalServer ? ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://') . $currentHost) : env('APP_URL', 'http://localhost/portfolio'));
 define('APP_ENV',   env('APP_ENV',   'production'));
 define('APP_DEBUG', filter_var(env('APP_DEBUG', false), FILTER_VALIDATE_BOOLEAN));
 

@@ -205,3 +205,23 @@ CREATE TABLE IF NOT EXISTS blogs (
     INDEX idx_published (is_published),
     INDEX idx_created (created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ---- Certificates, Awards & Badges ----
+CREATE TABLE IF NOT EXISTS certificates (
+    id             INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title          VARCHAR(255) NOT NULL,
+    issuer         VARCHAR(255) NOT NULL,
+    issue_date     VARCHAR(50)  NULL,
+    credential_id  VARCHAR(100) NULL,
+    credential_url VARCHAR(500) NULL,
+    image          VARCHAR(255) NULL,
+    category       ENUM('certificate','award','badge') NOT NULL DEFAULT 'certificate',
+    description    TEXT         NULL,
+    sort_order     INT          NOT NULL DEFAULT 0,
+    is_published   TINYINT(1)   NOT NULL DEFAULT 1,
+    created_at     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_category (category),
+    INDEX idx_published (is_published),
+    INDEX idx_sort (sort_order)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

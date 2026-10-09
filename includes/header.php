@@ -43,6 +43,7 @@ $canonicalUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@500;600;700;800;900&family=Oswald:wght@500;600;700&family=Space+Grotesk:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Bootstrap 5 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -75,8 +76,7 @@ $canonicalUrl = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER
 <!-- ── TOP NAVIGATION BAR ── -->
 <header class="top-nav" role="banner">
   <a href="<?= APP_URL ?>/index.php#home" class="top-nav__brand">
-    <div class="top-nav__logo">M</div>
-    MUDASSIR
+    MUDASSIR MUNIR
   </a>
   <div class="top-nav__badge">
     <span class="dot"></span>

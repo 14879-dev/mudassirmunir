@@ -1,1 +1,13 @@
-Options -Indexes
+# Prevent PHP file execution in uploads directory
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|phps|inc|cgi|pl|py)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Allow image and document delivery
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|pdf)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+Options -ExecCGI -Indexes

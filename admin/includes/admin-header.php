@@ -142,6 +142,9 @@ $activeMenu = $activeMenu ?? 'dashboard';
     <a href="<?= APP_URL ?>/admin/skills/" class="admin-nav-item <?= $activeMenu === 'skills' ? 'active' : '' ?>">
       <i class="bi bi-code-slash"></i> Skills &amp; Tools
     </a>
+    <a href="<?= APP_URL ?>/admin/certificates/" class="admin-nav-item <?= $activeMenu === 'certificates' ? 'active' : '' ?>">
+      <i class="bi bi-award"></i> Awards &amp; Certs
+    </a>
     <a href="<?= APP_URL ?>/admin/about/" class="admin-nav-item <?= $activeMenu === 'about' ? 'active' : '' ?>">
       <i class="bi bi-person"></i> Hero & Bio
     </a>

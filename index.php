@@ -14,6 +14,7 @@ startSecureSession();
 sendSecurityHeaders();
 
 // ── FETCH DATA ──
+Database::ensureCertificatesTable();
 $hero       = Database::selectOne("SELECT * FROM hero_content WHERE id = 1");
 $taglines   = $hero ? json_decode($hero['taglines'] ?? '[]', true) : ['Game Developer', 'Web Developer', 'Trading Systems Builder'];
 $about      = Database::selectOne("SELECT * FROM about_content WHERE id = 1");
@@ -24,6 +25,8 @@ foreach ($skills as $s) { $groupedSkills[$s['category']][] = $s; }
 $spokenLangs = Database::select("SELECT * FROM languages WHERE lang_type='spoken' ORDER BY sort_order ASC");
 $progLangs   = Database::select("SELECT * FROM languages WHERE lang_type='programming' ORDER BY sort_order ASC");
 $projects    = Database::select("SELECT * FROM projects WHERE is_published=1 ORDER BY sort_order ASC, created_at DESC");
+$featuredProjects = array_slice($projects, 0, 3);
+$certCount   = (int)(Database::selectOne("SELECT COUNT(*) as c FROM certificates WHERE is_published=1")['c'] ?? 0);
 $allTags = [];
 foreach ($projects as $p) { foreach ((json_decode($p['tags'] ?? '[]', true) ?: []) as $t) { $allTags[$t] = true; } }
 $allTags = array_keys($allTags); sort($allTags);
@@ -37,76 +40,114 @@ require_once __DIR__ . '/includes/header.php';
 ?>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!--  HERO SECTION                                       -->
+<!--  HERO SECTION (Editorial Magazine Style)            -->
 <!-- ═══════════════════════════════════════════════════ -->
 <section id="home" class="hero-section">
+  <!-- Dynamic animated ambient mesh background (Original Nova Theme) -->
   <div class="hero-bg-mesh" aria-hidden="true"></div>
 
-  <div class="container">
-    <div class="hero-layout">
+  <div class="container hero-container">
+    
+    <!-- Top Tagline: Just SOFTWARE ENGINEER (Shifted Upwards) -->
+    <div class="hero-top-tagline reveal">
+      <span class="hero-pill-badge">
+        <span class="hero-pill-dot"></span>
+        SOFTWARE ENGINEER
+      </span>
+    </div>
 
-      <!-- LEFT: Text Content -->
-      <div class="hero-left reveal">
-        <p class="text-muted text-sm font-semibold uppercase mb-4" style="letter-spacing:.12em;">
-          Digital Designer &amp; Experience Architect
-        </p>
+    <!-- Center Stage: Giant Bold Name BEHIND, Crisp Enlarged Portrait in Center, Descriptions on Left, Buttons on Right -->
+    <div class="hero-stage reveal delay-100">
+      
+      <!-- Backdrop Name with Animated Glow (BEHIND portrait, Even Bolder, z-index: 1) -->
+      <div class="hero-backdrop-name" aria-hidden="true">
+        <span class="name-part name-part--first">MUDASSIR</span>
+        <span class="name-part name-part--last">MUNIR</span>
+      </div>
 
-        <h1 class="hero-name">
-          <?= nl2br(e($hero['full_name'] ?? "MUDASSIR")) ?>
-        </h1>
+      <!-- Main Flanking Wings Content Grid (z-index: 2, No Box Containers) -->
+      <div class="hero-flank-grid">
 
-        <p class="hero-role">
-          <?= e($hero['title'] ?? 'Software Engineering Student & Developer') ?>
-        </p>
+        <!-- LEFT SIDE: Title & Bio Description (Desktop Only, Pushed Down) -->
+        <div class="hero-flank-left reveal delay-150">
+          <div class="hero-flank-text">
+            <h2 class="hero-title-text">
+              <?= e($hero['title'] ?? 'Software Engineering Student & Developer') ?>
+            </h2>
+            <p class="hero-bio-text">
+              <?= e($about['bio'] ?? 'I design and build futuristic interfaces and digital experiences that blend clarity, functionality, and innovation. Passionate about clean design, smooth interactions, and details that make a difference.') ?>
+            </p>
 
-        <p class="hero-bio">
-          <?= e($about['bio'] ?? 'I design and build futuristic interfaces and digital experiences that blend clarity, functionality, and innovation. Passionate about clean design, smooth interactions, and details that make a difference.') ?>
-        </p>
-
-        <div class="flex gap-3 mb-6" style="align-items:center; flex-wrap:wrap;">
-          <div style="display:flex;align-items:center;gap:6px;font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);letter-spacing:.06em;">
-            <span style="width:7px;height:7px;border-radius:50%;background:var(--color-success);display:inline-block;animation:pulse 2s infinite;"></span>
-            AVAILABLE WORLDWIDE
+            <!-- Buttons on Left Side directly under text (Aligned Next to Each Other) -->
+            <div class="hero-cta-actions hero-cta-actions--desktop">
+              <a href="#projects" class="btn btn--primary btn--lg hero-btn-main">
+                <i class="bi bi-grid-fill"></i>
+                <span><?= e($hero['cta_primary'] ?? 'VIEW WORK') ?></span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+              <a href="<?= APP_URL ?>/cv-download.php" class="btn btn--ghost btn--lg hero-btn-sub">
+                <i class="bi bi-download"></i>
+                <span>DOWNLOAD CV</span>
+              </a>
+            </div>
           </div>
         </div>
 
-        <div class="hero-cta reveal delay-200">
-          <a href="#projects" class="btn btn--primary btn--lg">
-            <i class="bi bi-grid-fill"></i>
-            <?= e($hero['cta_primary'] ?? 'VIEW WORK') ?>
-            <i class="bi bi-arrow-down"></i>
-          </a>
-          <a href="<?= APP_URL ?>/cv-download.php" class="btn btn--ghost btn--lg">
-            <i class="bi bi-download"></i>
-            DOWNLOAD CV
-          </a>
-        </div>
-      </div>
-
-      <!-- RIGHT: Profile Photo -->
-      <div class="hero-right reveal delay-200">
-        <div class="hero-photo-frame">
+        <!-- CENTER: Maximum Enlarged Portrait (Head reaches top of name, Soft Bottom Blend) -->
+        <div class="hero-portrait-wrap reveal">
           <?php if (!empty($hero['profile_photo']) && file_exists(UPLOAD_PATH . '/hero/' . $hero['profile_photo'])): ?>
             <img src="<?= APP_URL ?>/uploads/hero/<?= e($hero['profile_photo']) ?>"
-                 alt="<?= e($hero['full_name'] ?? 'Mudassir') ?>"
+                 alt="<?= e($hero['full_name'] ?? 'Mudassir Munir') ?>"
+                 class="hero-portrait-img"
+                 loading="eager">
+          <?php elseif (file_exists(UPLOAD_PATH . '/hero/cf74b767e0ff7d2ab2db01d281e59da7.webp')): ?>
+            <img src="<?= APP_URL ?>/uploads/hero/cf74b767e0ff7d2ab2db01d281e59da7.webp"
+                 alt="Mudassir Munir"
+                 class="hero-portrait-img"
                  loading="eager">
           <?php else: ?>
-            <!-- Placeholder gradient portrait -->
-            <div style="width:100%;height:600px;background:linear-gradient(160deg,#c8d8f0 0%,#a0b8de 40%,#8aaad0 100%);display:flex;align-items:center;justify-content:center; -webkit-mask-image: radial-gradient(circle at 60% 40%, black 30%, transparent 75%);">
-              <div style="font-size:150px;opacity:.5;">🧑‍💻</div>
-            </div>
+            <div class="hero-portrait-placeholder">🧑‍💻</div>
           <?php endif; ?>
-          <div class="frame-glow" aria-hidden="true"></div>
+        </div>
 
-          <!-- Decorative orbit ring -->
-          <div class="hero-orbit" aria-hidden="true">
-            <div class="hero-orbit-inner">✦</div>
+        <!-- RIGHT SIDE: Rich Descriptive Editorial Content (Shown on Mobile before buttons) -->
+        <div class="hero-flank-right reveal delay-200">
+          <div class="hero-right-text">
+            <div class="hero-subheading-badge">
+              <span class="hero-bullet"></span> ENGINEERING &amp; VISION
+            </div>
+            <h3 class="hero-right-title">
+              CRAFTING RESILIENT DIGITAL SYSTEMS &amp; INTERFACES
+            </h3>
+            <p class="hero-right-desc">
+              Bridging software architecture with clean aesthetics — developing robust web platforms, real-time systems, and memorable user experiences built for scale and performance.
+            </p>
+            <div class="hero-right-tags">
+              <span class="hero-tag-pill"><i class="bi bi-code-slash"></i> Full-Stack</span>
+              <span class="hero-tag-pill"><i class="bi bi-cpu"></i> Systems</span>
+              <span class="hero-tag-pill"><i class="bi bi-shield-check"></i> Security</span>
+            </div>
+
+            <!-- Mobile Buttons (Placed under right description on mobile) -->
+            <div class="hero-cta-actions hero-cta-actions--mobile">
+              <a href="#projects" class="btn btn--primary btn--lg hero-btn-main">
+                <i class="bi bi-grid-fill"></i>
+                <span><?= e($hero['cta_primary'] ?? 'VIEW WORK') ?></span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+              <a href="<?= APP_URL ?>/cv-download.php" class="btn btn--ghost btn--lg hero-btn-sub">
+                <i class="bi bi-download"></i>
+                <span>DOWNLOAD CV</span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
 
-    </div><!-- /.hero-layout -->
-  </div>
+      </div><!-- /.hero-flank-grid -->
+
+    </div><!-- /.hero-stage -->
+
+  </div><!-- /.hero-container -->
 </section>
 
 <!-- ═══════════════════════════════════════════════════ -->
@@ -122,7 +163,7 @@ require_once __DIR__ . '/includes/header.php';
       </div>
       <div class="stat-item">
         <div class="stat-icon"><i class="bi bi-folder-check"></i></div>
-        <div class="stat-number">7+</div>
+        <div class="stat-number"><?= count($projects) > 0 ? count($projects) . '+' : '7+' ?></div>
         <div class="stat-label">Projects<br>Completed</div>
       </div>
       <div class="stat-item">
@@ -130,11 +171,11 @@ require_once __DIR__ . '/includes/header.php';
         <div class="stat-number">5+</div>
         <div class="stat-label">Happy<br>Clients</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-icon"><i class="bi bi-award"></i></div>
-        <div class="stat-number">0</div>
-        <div class="stat-label">Awards<br>Received</div>
-      </div>
+      <a href="<?= APP_URL ?>/certificates.php" class="stat-item stat-item--link" title="Click to view all Awards & Certificates">
+        <div class="stat-icon"><i class="bi bi-award-fill" style="color:#f59e0b;"></i></div>
+        <div class="stat-number"><?= $certCount ?></div>
+        <div class="stat-label">Awards &amp;<br>Certificates <i class="bi bi-arrow-up-right text-xs" style="opacity:0.8;"></i></div>
+      </a>
       <div class="stat-quote">
         <blockquote>
           "Design is not just what it looks like and feels like. Design is how it works."
@@ -162,10 +203,25 @@ require_once __DIR__ . '/includes/header.php';
           </div>
         </div>
 
-        <!-- Education -->
+        <!-- Education & Timeline -->
         <div style="margin-bottom:var(--space-6);">
-          <div class="text-xs font-semibold uppercase text-accent mb-3" style="letter-spacing:.1em;">Education</div>
-          <?php if (!empty($about['education_degree'])): ?>
+          <div class="text-xs font-semibold uppercase text-accent mb-3" style="letter-spacing:.1em;">Education &amp; Experience</div>
+          <?php if (!empty($timeline)): ?>
+            <div class="timeline">
+              <?php foreach ($timeline as $tItem): ?>
+                <div class="timeline-item">
+                  <div class="timeline-year"><?= e($tItem['year'] ?? '') ?></div>
+                  <div class="timeline-title"><?= e($tItem['event'] ?? '') ?></div>
+                  <?php if (!empty($tItem['institution'])): ?>
+                    <div class="timeline-sub"><?= e($tItem['institution']) ?></div>
+                  <?php endif; ?>
+                  <?php if (!empty($tItem['description'])): ?>
+                    <div class="text-xs text-muted mt-1"><?= e($tItem['description']) ?></div>
+                  <?php endif; ?>
+                </div>
+              <?php endforeach; ?>
+            </div>
+          <?php elseif (!empty($about['education_degree'])): ?>
             <div class="timeline">
               <div class="timeline-item">
                 <div class="timeline-year"><?= e($about['education_years'] ?? '2022 – Present') ?></div>
@@ -176,23 +232,23 @@ require_once __DIR__ . '/includes/header.php';
           <?php else: ?>
             <div class="timeline">
               <div class="timeline-item">
-                <div class="timeline-year">2023</div>
-                <div class="timeline-title">Co-Founder, Hexspire Solutions</div>
-                <div class="timeline-sub">Web Studio</div>
-              </div>
-              <div class="timeline-item">
                 <div class="timeline-year">2023 – Present</div>
                 <div class="timeline-title">BS Software Engineering</div>
                 <div class="timeline-sub">CUSIT Peshawar</div>
               </div>
               <div class="timeline-item">
+                <div class="timeline-year">2023</div>
+                <div class="timeline-title">Co-Founder, Hexspire Solutions</div>
+                <div class="timeline-sub">Web Studio</div>
+              </div>
+              <div class="timeline-item">
                 <div class="timeline-year">2021 – 2023</div>
                 <div class="timeline-title">F.Sc Pre-medical</div>
-                <div class="timeline-sub">Government college Peshawar</div>
+                <div class="timeline-sub">Government College Peshawar</div>
               </div>
               <div class="timeline-item">
                 <div class="timeline-year">2021</div>
-                <div class="timeline-title">Metriculation</div>
+                <div class="timeline-title">Matriculation</div>
                 <div class="timeline-sub">PMS Branch Boys V</div>
               </div>
             </div>
@@ -223,45 +279,26 @@ require_once __DIR__ . '/includes/header.php';
           </div>
         </div>
 
-        <!-- Skill bars -->
-        <?php if (!empty($skills)): ?>
-          <?php foreach (array_slice($skills, 0, 6) as $sk): ?>
-            <div class="skill-row">
-              <div class="skill-row__head">
-                <span class="skill-row__name"><?= e($sk['name']) ?></span>
-                <span class="skill-row__pct"><?= (int)$sk['proficiency'] ?>%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar__fill" data-width="<?= (int)$sk['proficiency'] ?>%" style="width:0%;"></div>
-              </div>
-            </div>
-          <?php endforeach; ?>
-        <?php else: ?>
-          <?php foreach ([['UI/UX Design',95],['Interaction Design',80],['Web Design',55],['Prototyping',85],['Design Systems',90],['User Research',80]] as [$n,$p]): ?>
-            <div class="skill-row">
-              <div class="skill-row__head">
-                <span class="skill-row__name"><?= $n ?></span>
-                <span class="skill-row__pct"><?= $p ?>%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar__fill" data-width="<?= $p ?>%" style="width:0%;"></div>
-              </div>
-            </div>
-          <?php endforeach; ?>
-        <?php endif; ?>
+       
 
         <!-- Tech icons grid -->
         <div class="tech-grid mt-6">
           <?php
           $techItems = [
-            ['icon'=>'devicon-unity-original',   'label'=>'Unity'],
-            ['icon'=>'devicon-csharp-plain',      'label'=>'C#'],
-            ['icon'=>'devicon-php-plain',          'label'=>'PHP'],
+            
+            ['icon'=>'devicon-cplusplus-plain',      'label'=>'C++'],
+            ['icon'=>'devicon-javascript-plain',   'label'=>'JS'],
             ['icon'=>'devicon-react-original',    'label'=>'React'],
             ['icon'=>'devicon-nodejs-plain',       'label'=>'Node.js'],
+            ['icon'=>'devicon-flutter-plain',       'label'=>'Flutter'],
             ['icon'=>'devicon-python-plain',       'label'=>'Python'],
+            ['icon'=>'devicon-html5-plain',          'label'=>'HTML'],
+            ['icon'=>'devicon-css3-plain',          'label'=>'CSS'],
+              ['icon'=>'devicon-bootstrap-plain',          'label'=>'Bootstrap'],
+            ['icon'=>'devicon-php-plain',          'label'=>'PHP'],
             ['icon'=>'devicon-mysql-plain',        'label'=>'MySQL'],
-            ['icon'=>'devicon-javascript-plain',   'label'=>'JS'],
+            ['icon'=>'devicon-unity-original',   'label'=>'Unity'],
+            ['icon'=>'devicon-csharp-plain',      'label'=>'C#'],
             ['icon'=>'devicon-git-plain',          'label'=>'Git'],
           ];
           foreach ($techItems as $ti): ?>
@@ -327,8 +364,8 @@ require_once __DIR__ . '/includes/header.php';
         <div class="sec-head__icon"><i class="bi bi-lightning-fill"></i></div>
         <span class="sec-head__title">Featured Case Studies</span>
       </div>
-      <a href="#projects" class="sec-head__action">
-        VIEW ALL PROJECTS <i class="bi bi-arrow-right ms-1"></i>
+      <a href="<?= APP_URL ?>/projects.php" class="sec-head__action">
+        VIEW ALL PROJECTS (<?= count($projects) ?>) <i class="bi bi-arrow-right ms-1"></i>
       </a>
     </div>
 
@@ -371,7 +408,7 @@ require_once __DIR__ . '/includes/header.php';
 
     <?php else: ?>
       <div class="projects-grid" id="projects-grid">
-        <?php foreach ($projects as $i => $project):
+        <?php foreach ($featuredProjects as $i => $project):
           $tags = json_decode($project['tags'] ?? '[]', true) ?: [];
           $num  = str_pad((string)($i + 1), 2, '0', STR_PAD_LEFT);
         ?>
@@ -404,6 +441,15 @@ require_once __DIR__ . '/includes/header.php';
       </div>
       <div id="no-results" class="text-center text-muted mt-8" style="display:none;">
         <p>No projects found.</p>
+      </div>
+
+      <!-- View All Projects Button -->
+      <div class="flex-center mt-8 reveal">
+        <a href="<?= APP_URL ?>/projects.php" class="btn btn--primary btn--lg" style="padding: 14px 34px; font-size: var(--text-base); box-shadow: 0 10px 30px rgba(91,142,240,0.3);">
+          <i class="bi bi-grid-3x3-gap-fill me-2"></i>
+          VIEW ALL PROJECTS (<?= count($projects) ?>)
+          <i class="bi bi-arrow-right ms-2"></i>
+        </a>
       </div>
     <?php endif; ?>
   </div>

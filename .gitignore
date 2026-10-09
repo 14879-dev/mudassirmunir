@@ -3,10 +3,18 @@ vendor/
 .env
 .DS_Store
 Thumbs.db
+logs/*.log
 uploads/projects/*
 !uploads/projects/.htaccess
 uploads/hero/*
 !uploads/hero/.htaccess
+!uploads/hero/*.webp
+uploads/certificates/*
+!uploads/certificates/.htaccess
 uploads/cv/*
 !uploads/cv/.htaccess
+database/*_db.sql
+database/*dump*.sql
+*.sql.gz
+*.sql.bak
 

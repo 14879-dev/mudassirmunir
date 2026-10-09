@@ -102,18 +102,22 @@ if ($section === 'about') {
     $years       = trim($_POST['education_years'] ?? '');
 
     // Build timeline JSON from parallel arrays
-    $tYears  = $_POST['timeline_year']  ?? [];
-    $tEvents = $_POST['timeline_event'] ?? [];
-    $tDescs  = $_POST['timeline_desc']  ?? [];
+    $tYears  = $_POST['timeline_year']        ?? [];
+    $tEvents = $_POST['timeline_event']       ?? [];
+    $tInsts  = $_POST['timeline_institution'] ?? [];
+    $tDescs  = $_POST['timeline_desc']        ?? [];
     $timeline = [];
     foreach ($tYears as $i => $yr) {
-        $yr  = trim($yr);
-        $evt = trim($tEvents[$i] ?? '');
+        $yr   = trim($yr);
+        $evt  = trim($tEvents[$i] ?? '');
+        $inst = trim($tInsts[$i] ?? '');
+        $desc = trim($tDescs[$i] ?? '');
         if ($yr === '' && $evt === '') continue; // skip empty rows
         $timeline[] = [
             'year'        => $yr,
             'event'       => $evt,
-            'description' => trim($tDescs[$i] ?? ''),
+            'institution' => $inst,
+            'description' => $desc,
         ];
     }
     $timelineJson = json_encode($timeline);
